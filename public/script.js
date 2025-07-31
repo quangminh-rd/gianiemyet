@@ -51,7 +51,7 @@ function findUnitPrice() {
     );
 }
 
-function normalizema_san_pham_cau_tao(raw) {
+function normalizemaSanphamcautao(raw) {
     const t = raw.trim();
     return t.length > 2 && t[1] === '.' ? t.slice(2) : t;
 }
@@ -69,7 +69,7 @@ function computeExtraFactor(item) {
         so_khung_dung
     } = item;
 
-    const ma_san_pham_cau_tao = normalizema_san_pham_cau_tao(ma_san_pham);
+    const ma_san_pham_cau_tao = normalizemaSanphamcautao(ma_san_pham);
 
     // 1) CK19 / CC19 dạng D
     if (
@@ -156,7 +156,7 @@ function computeAdditionalCharge(item) {
     } = item;
 
     // chuẩn hoá ma_san_pham_cau_tao
-    const ma_san_pham_cau_tao = normalizema_san_pham_cau_tao(ma_san_pham);
+    const ma_san_pham_cau_tao = normalizemaSanphamcautao(ma_san_pham);
 
     // helper
     const inList = (v, arr) => arr.includes(v);
@@ -892,6 +892,107 @@ function validateLogicConstraints() {
             clearError('so_canh_di_dong');
         }
     }
+    // 5. Kiểm tra chiều rộng với các mã đặc biệt
+    const chieuRong = parseInt(document.getElementById('chieu_rong')?.value) || 0;
+    const maSP = document.getElementById('field5')?.value || '';
+    const maCauTao = normalizemaSanphamcautao(maSP);
+
+    if (
+        ["CK19.D.TK", "CK19.D.NK", "CC19.D.TK", "CC19.D.NK"].includes(maCauTao) &&
+        chieuRong > 1800
+    ) {
+        setError('chieu_rong', 'Chiều rộng phải ≤ 1800');
+        valid = false;
+    } else {
+        clearError('chieu_rong');
+    }
+    const chieuCao = parseInt(document.getElementById('chieu_cao')?.value) || 0;
+    const nhomSP = document.getElementById('field1')?.value || '';
+    const tongSoCanh = parseInt(document.getElementById('tong_so_canh')?.value) || 0;
+
+    // Kiểm tra chiều cao theo mã sản phẩm & nhóm sản phẩm
+    if (
+        ["CK19.D.TK", "CK19.D.NK"].includes(maCauTao) &&
+        chieuCao > 2300
+    ) {
+        setError('chieu_cao', 'Chiều cao phải ≤ 2300');
+        valid = false;
+
+    } else if (
+        ["CC19.D.TK", "CC19.D.NK"].includes(maCauTao) &&
+        chieuCao > 1800
+    ) {
+        setError('chieu_cao', 'Chiều cao phải ≤ 1800');
+        valid = false;
+
+    } else if (
+        ["Cửa lưới chống muỗi", "Rèm, vách ngăn"].includes(nhomSP) &&
+        ["XX23.M.6005", "XX23.H.6005"].includes(maCauTao)
+    ) {
+        if (tongSoCanh === 0) {
+            clearError('chieu_cao');
+        } else if (maCauTao === "XX23.M.6005") {
+            if (chieuCao > 480 && chieuCao < (chieuRong * 2 / tongSoCanh)) {
+                setError('chieu_cao', 'Chiều cao phải ≥ Chiều rộng × 2 / Số cánh. Hãy tăng số cánh!');
+                valid = false;
+            } else {
+                clearError('chieu_cao');
+            }
+        } else if (maCauTao === "XX23.H.6005") {
+            if (
+                chieuCao > 480 &&
+                (
+                    chieuCao >= (chieuRong * 2 / tongSoCanh) ||
+                    chieuCao < (chieuRong / tongSoCanh + 60)
+                )
+            ) {
+                if (chieuCao >= (chieuRong * 2 / tongSoCanh)) {
+                    setError('chieu_cao', 'Chiều cao phải < Chiều rộng × 2 / Số cánh. Hãy dùng hệ xích vào 1 bên!');
+                } else {
+                    setError('chieu_cao', 'Chiều cao phải ≥ Chiều rộng / Số cánh + 60mm. Hãy tăng số cánh!');
+                }
+                valid = false;
+            } else {
+                clearError('chieu_cao');
+            }
+        }
+
+    } else if (
+        nhomSP === "Cửa 2 trong 1" &&
+        ["XX23.M.6005", "XX23.H.6005"].includes(maCauTao)
+    ) {
+        if (tongSoCanh === 0) {
+            clearError('chieu_cao');
+        } else if (maCauTao === "XX23.M.6005") {
+            if (chieuCao > 480 && chieuCao < (chieuRong * 4 / tongSoCanh)) {
+                setError('chieu_cao', 'Chiều cao phải ≥ Chiều rộng × 4 / Số cánh. Hãy tăng số cánh!');
+                valid = false;
+            } else {
+                clearError('chieu_cao');
+            }
+        } else if (maCauTao === "XX23.H.6005") {
+            if (
+                chieuCao > 480 &&
+                (
+                    chieuCao >= (chieuRong * 4 / tongSoCanh) ||
+                    chieuCao < (chieuRong * 2 / tongSoCanh + 60)
+                )
+            ) {
+                if (chieuCao >= (chieuRong * 4 / tongSoCanh)) {
+                    setError('chieu_cao', 'Chiều cao phải < Chiều rộng × 4 / Số cánh. Hãy dùng hệ xích vào 1 bên!');
+                } else {
+                    setError('chieu_cao', 'Chiều cao phải ≥ Chiều rộng × 2 / Số cánh + 60mm. Hãy tăng số cánh!');
+                }
+                valid = false;
+            } else {
+                clearError('chieu_cao');
+            }
+        }
+
+    } else {
+        clearError('chieu_cao');
+    }
+
 
     return valid;
 }
