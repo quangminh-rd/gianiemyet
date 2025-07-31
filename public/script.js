@@ -1008,4 +1008,3 @@ function hideLoading() {
     const el = document.getElementById('loading-popup');
     if (el) el.style.display = 'none';
 }
-
