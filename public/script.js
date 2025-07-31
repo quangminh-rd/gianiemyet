@@ -69,10 +69,7 @@ function computeExtraFactor(item) {
         so_khung_dung
     } = item;
 
-    console.log('computeExtraFactor input:', item);
-
     const ma_san_pham_cau_tao = normalizema_san_pham_cau_tao(ma_san_pham);
-    console.log('  normalized ma_san_pham_cau_tao =', ma_san_pham_cau_tao);
 
     // 1) CK19 / CC19 dạng D
     if (
@@ -160,9 +157,6 @@ function computeAdditionalCharge(item) {
 
     // chuẩn hoá ma_san_pham_cau_tao
     const ma_san_pham_cau_tao = normalizema_san_pham_cau_tao(ma_san_pham);
-
-    console.log('computeAdditionalCharge input:', item);
-    console.log('  normalized ma_san_pham_cau_tao =', ma_san_pham_cau_tao);
 
     // helper
     const inList = (v, arr) => arr.includes(v);
