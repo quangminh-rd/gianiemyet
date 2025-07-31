@@ -1,0 +1,172 @@
+body {
+    background: #f0f2f5;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+#form-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+    align-items: stretch;
+    position: relative;
+    background-image: url('https://i.imgur.com/BrJoeOv.png');
+    background-repeat: no-repeat;
+    background-size: 960px auto;
+    background-position: center center;
+    padding-top: 40px;
+    /* giữ nguyên */
+    padding-bottom: 40px;
+    background-blend-mode: lighten;
+    z-index: 1;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.9);
+    /* Nền trắng trong suốt 90% */
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    animation: fadeIn 0.6s ease-in-out;
+    width: 100%;
+    max-width: 600px;
+    box-sizing: border-box;
+}
+
+.card h3 {
+    margin-top: 0;
+    text-align: center;
+    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+}
+
+.card label {
+    display: block;
+    margin-bottom: 18px;
+    font-weight: 500;
+    color: #444;
+}
+
+.card select,
+.card input {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.card select:focus,
+.card input:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+.card input[readonly] {
+    background: #f1f1f1;
+    color: #555;
+}
+
+#product-calculated {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+#product-calculated h3 {
+    margin-top: 0;
+    text-align: center;
+    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 6px;
+    /* Thêm dòng này nếu chưa có */
+}
+
+#product-calculated label {
+    display: block;
+    font-weight: 500;
+    color: #444;
+    margin-bottom: 0;
+}
+
+#product-calculated input,
+#product-calculated select {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+#product-calculated input:focus,
+#product-calculated select:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+#product-calculated input[readonly] {
+    background: #f1f1f1;
+    color: #555;
+}
+
+@media (min-width: 900px) {
+    .card {
+        width: 45%;
+    }
+}
+
+@media (max-width: 600px) {
+    .card {
+        padding: 20px;
+        margin: 20px;
+    }
+
+    .card h3 {
+        font-size: 1.25rem;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.error-msg {
+    color: red;
+    font-size: 0.9rem;
+    margin-left: 10px;
+    display: inline-block;
+}
+
+input.error {
+    border-color: red;
+    background-color: #fff0f0;
+}
+
+#don_gia_niem_yet_kl {
+    font-weight: bold;
+    color: #e44d26;
+}
+
+/* Làm nổi bật các trường đơn giá và thành tiền */
+.highlight-price input {
+    font-weight: bold;
+    background-color: #fff7e6 !important;
+    color: #b3541e !important;
+    border-color: #f0c36d !important;
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Kiemr tra giá niêm yết</title>
+    <link rel="stylesheet" href="./public/style.css">
+    <script src="./public/script.js" defer></script>
+</head>
+
+<body>
+    <div id="form-wrapper">
+        <div id="product-selector" class="card">
+            <h3>Chọn thông tin sản phẩm</h3>
+            <label>Nhóm sản phẩm
+                <select id="field1" disabled>
+                    <option value="">-- Đang tải --</option>
+                </select>
+            </label>
+            <label>Mẫu cửa
+                <select id="field2" disabled>
+                    <option value="">-- Chọn nhóm trước --</option>
+                </select>
+            </label>
+            <label>Hệ cửa
+                <select id="field3" disabled>
+                    <option value="">-- Chọn mẫu trước --</option>
+                </select>
+            </label>
+            <label>Tên sản phẩm
+                <select id="field4" disabled>
+                    <option value="">-- Chọn hệ trước --</option>
+                </select>
+            </label>
+            <label>Mã sản phẩm
+                <input type="text" id="field5" readonly placeholder="–">
+            </label>
+            <input type="hidden" id="cot_bs_1" value="…">
+            <input type="hidden" id="cot_bs_2" value="…">
+            <input type="hidden" id="cot_bs_3" value="…">
+            <input type="hidden" id="cot_bs_4" value="…">
+            <input type="hidden" id="cot_bs_5" value="…">
+
+        </div> <!-- kết thúc product-selector -->
+        <div id="product-calculated" class="card">
+            <h3>Nhập kích thước và số lượng</h3>
+            <label>Chiều rộng (mm)
+                <input type="number" id="chieu_rong" placeholder="Chiều rộng (mm)">
+            </label>
+            <label>Chiều cao (mm)
+                <input type="number" id="chieu_cao" placeholder="Chiều cao (mm)">
+            </label>
+            <label>Số lượng
+                <input type="number" id="so_luong" value="1">
+            </label>
+            <label>Diện tích (m²)
+                <input type="text" id="dien_tich" readonly>
+            </label>
+            <label>Đơn vị tính
+                <input type="text" id="don_vi_tinh" readonly>
+            </label>
+            <label>Khối lượng
+                <input type="text" id="khoi_luong" readonly>
+            </label>
+            <label>Khoảng tiêu chuẩn
+                <input type="text" id="khoang_tieu_chuan" readonly>
+            </label>
+
+            <!-- Đơn giá trước thuế mới -->
+            <label class="highlight-price">Đơn giá trước thuế tạm tính
+                <input type="text" id="don_gia_truoc_thue" readonly>
+            </label>
+
+            <!-- Mức VAT (field6) được di chuyển vào đây -->
+            <label class="highlight-price">Mức VAT (%)
+                <input type="text" id="field6" readonly>
+            </label>
+
+            <!-- Đơn giá niêm yết tạm tính -->
+            <label class="highlight-price">Đơn giá sau thuế tạm tính
+                <input type="text" id="don_gia_niem_yet_kl" readonly>
+            </label>
+            <label class="highlight-price">Thành tiền tạm tính
+                <input type="text" id="thanh_tien" readonly>
+            </label>
+        </div>
+    </div> <!-- kết thúc form-wrapper -->
+</body>
+
+</html>
