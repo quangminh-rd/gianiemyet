@@ -321,7 +321,7 @@ function updateUnitPrice() {
     const matched = findUnitPrice();
     if (!matched || matched.don_gia_niem_yet_kl == null) {
         beforeVatEl.value = '';
-        priceWithVatEl.value = 'Không tìm thấy giá';
+        priceWithVatEl.value = 'Không có đơn giá, gọi 1900 0282 để biết thông tin!';
         thanhTienEl.value = '';
         return;
     }
@@ -602,7 +602,7 @@ function onDropdownChange(e) {
             }
 
             // Gắn sự kiện handler vào các input cần thiết
-            ['chieu_rong', 'chieu_cao', 'so_luong', 'tong_so_canh', 'so_canh_luoi', 'so_canh_rem', 'so_canh_ben_trai', 'so_canh_ben_phai', 'so_canh_di_dong']
+            ['chieu_rong', 'chieu_cao', 'so_luong', 'tong_so_canh', 'so_canh_di_dong', 'khung_nhom', 'kieu_cua', 'mau_luoi', 'mau_rem', 'so_canh_luoi', 'so_canh_rem', 'so_canh_ben_trai', 'so_canh_ben_phai']
                 .forEach(id => document.getElementById(id)?.addEventListener('input', handler));
 
             // Tính toán lần đầu
