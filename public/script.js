@@ -772,7 +772,8 @@ function calculateExtraFields(product) {
     updateUnitPrice(); // Thêm dòng này để cập nhật giá
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    showLoading(); // 👉 Hiện popup
     // 1) Gắn listener cho 3 ô nhập liệu cố định
     ['chieu_rong', 'chieu_cao', 'so_luong'].forEach(id => {
         const el = document.getElementById(id);
@@ -807,8 +808,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 4) Load dữ liệu catalog + price list
-    loadProductCatalog();
+    await loadProductCatalog(); // ✅ Bắt buộc await
     loadPriceList();
+
+    hideLoading(); // 👉 Ẩn popup sau khi xong
 });
 
 
@@ -996,3 +999,13 @@ function validateLogicConstraints() {
 
     return valid;
 }
+
+function showLoading() {
+    const el = document.getElementById('loading-popup');
+    if (el) el.style.display = 'flex';
+}
+function hideLoading() {
+    const el = document.getElementById('loading-popup');
+    if (el) el.style.display = 'none';
+}
+
